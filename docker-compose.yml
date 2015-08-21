@@ -1,0 +1,25 @@
+squeak5:
+  container_name: squeak5
+  image: pshouse/vnc-squeak:0.6
+  expose:
+   - "5900"
+postgres:
+  build: .
+  container_name: postgres
+  environment:
+   - POTSGRES_PASSWORD=guac
+guacd:
+  container_name: guacd
+  image: glyptodon/guacd
+guacamole:
+  container_name: guacamole
+  image: glyptodon/guacamole
+  links: 
+   - guacd:guacd
+   - postgres:postgres
+  environment:
+   - POSTGRES_DATABASE=guacamole_db
+   - POSTGRES_USER=postgres 
+   - POSTGRES_PASSWORD=gua
+  ports:
+   - "8080:8080"
