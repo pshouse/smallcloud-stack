@@ -1,6 +1,6 @@
 squeak5:
   container_name: squeak5
-  image: pshouse/vnc-squeak:0.7
+  image: pshouse/vnc-squeak:0.8
   expose:
    - "5900"
 postgres:
