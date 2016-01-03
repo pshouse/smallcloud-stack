@@ -63,6 +63,10 @@ CREATE TABLE guacamole_connection_group (
   type                  guacamole_connection_group_type
                         NOT NULL DEFAULT 'ORGANIZATIONAL',
 
+  -- Concurrency limits
+  max_connections          integer,
+  max_connections_per_user integer,
+
   PRIMARY KEY (connection_group_id),
 
   CONSTRAINT connection_group_name_parent
@@ -90,6 +94,10 @@ CREATE TABLE guacamole_connection (
   parent_id           integer,
   protocol            varchar(32)  NOT NULL,
   
+  -- Concurrency limits
+  max_connections          integer,
+  max_connections_per_user integer,
+
   PRIMARY KEY (connection_id),
 
   CONSTRAINT connection_name_parent
@@ -114,11 +122,26 @@ CREATE INDEX ON guacamole_connection(parent_id);
 CREATE TABLE guacamole_user (
 
   user_id       serial       NOT NULL,
+
+  -- Username and optionally-salted password
   username      varchar(128) NOT NULL,
   password_hash bytea        NOT NULL,
   password_salt bytea,
+
+  -- Account disabled/expired status
   disabled      boolean      NOT NULL DEFAULT FALSE,
   expired       boolean      NOT NULL DEFAULT FALSE,
+
+  -- Time-based access restriction
+  access_window_start    time,
+  access_window_end      time,
+
+  -- Date-based access restriction
+  valid_from  date,
+  valid_until date,
+
+  -- Timezone used for all date/time comparisons and interpretation
+  timezone varchar(64),
 
   PRIMARY KEY (user_id),
 
@@ -274,7 +297,8 @@ CREATE TABLE guacamole_connection_history (
 
 CREATE INDEX ON guacamole_connection_history(user_id);
 CREATE INDEX ON guacamole_connection_history(connection_id);
-
+CREATE INDEX ON guacamole_connection_history(start_date);
+CREATE INDEX ON guacamole_connection_history(end_date);
 --
 -- Copyright (C) 2015 Glyptodon LLC
 --

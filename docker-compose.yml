@@ -1,36 +1,28 @@
 nginx-acme:
-  build: guac-nginx/.  
+  image: pshouse/guac-nginx  
   ports:
     - 80:80
     - 443:443
-  links:
-    - guacamole 
   environment:
     - "DOMAINS=mischief.squeakcloud.com -> http://guacamole:8080"
-    - "PRODUCTION=true"
-    - "FORCE_RENEW=false"
+    - "PRODUCTION=false"
+    - "FORCE_RENEW=true"
 squeak5:
   container_name: squeak5
   image: pshouse/vnc-squeak:0.8
   expose:
    - "5900"
 postgres:
-  build: guac-postgres/.
+  image: pshouse/guac-postgres
   container_name: postgres
   environment:
    - POTSGRES_PASSWORD=guac
 guacd:
   container_name: guacd
   image: glyptodon/guacd
-  links:
-   - squeak5
 guacamole:
+  image: pshouse/guacamole-docker
   container_name: guacamole
-  image: glyptodon/guacamole
-  links: 
-   - guacd:guacd
-   - postgres:postgres
-   - squeak5:squeak5
   environment:
    - POSTGRES_DATABASE=guacamole_db
    - POSTGRES_USER=postgres 
