@@ -1,10 +1,11 @@
-nginx-acme:
+guac-nginx:
   image: pshouse/guac-nginx  
+  container_name: nginx
   ports:
     - 80:80
     - 443:443
   environment:
-    - "DOMAINS=mischief.squeakcloud.com -> http://guacamole:8080"
+    - "DOMAINS=mischief-01.squeakcloud.com -> http://guacamole:8080/guacamole/"
     - "PRODUCTION=false"
     - "FORCE_RENEW=true"
 squeak5:
