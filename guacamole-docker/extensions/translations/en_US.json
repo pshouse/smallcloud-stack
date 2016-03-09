@@ -1,0 +1,9 @@
+{
+    "APP" : {
+        "NAME" : "SqueakCloud"
+    },
+    
+    "CLIENT" : {
+	"TEXT_CLIENT_STATUS_CONNECTING"   : "Connecting to SqueakCloud..."
+    }
+}

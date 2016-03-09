@@ -1,0 +1,12 @@
+.login-ui .login-dialog .logo {
+   background-image: url('app/ext/sqc/web/images/logo.png');
+}
+
+.login-ui div.login-dialog {
+    background: white;
+}
+
+.login-ui .login-fields .labeled-field {
+    z-index: 0;
+}
+

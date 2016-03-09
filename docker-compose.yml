@@ -9,8 +9,7 @@ guac-nginx:
     - "PRODUCTION=false"
     - "FORCE_RENEW=true"
 squeak5:
-  container_name: squeak5
-  image: pshouse/vnc-squeak:0.8
+  image: pshouse/vnc-squeak:0.11
   expose:
    - "5900"
 postgres:

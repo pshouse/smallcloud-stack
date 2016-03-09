@@ -35,6 +35,7 @@ ENV \
 
 # Add configuration scripts
 COPY bin /opt/guacamole/bin/
+COPY sqc-extension.jar /opt/guacamole/extensions/sqc-extension.jar
 
 # Download and install latest guacamole-client and authentication
 RUN \

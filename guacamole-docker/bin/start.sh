@@ -303,6 +303,11 @@ if [ -n "$POSTGRES_DATABASE" ]; then
     associate_postgresql
 fi
 
+# Add Extension
+if [ "$(ls -A /opt/guacamole/extensions )" ]; then
+    ln -s /opt/guacamole/extensions/*-extension.jar "$GUACAMOLE_EXT"
+fi
+
 #
 # Finally start Guacamole (under Tomcat)
 #
